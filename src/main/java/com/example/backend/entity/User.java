@@ -1,5 +1,6 @@
 package com.example.backend.entity;
 
+import com.example.backend.entity.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -35,8 +36,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name="role_id"))
     private Set<Role> roles;
 
+    @Enumerated(EnumType.STRING)
     @Column(length = 50)
-    private String status;
+    private UserStatus status;
 
     @Column(name="avatar_url", length = 255)
     private String avatarUrl;
