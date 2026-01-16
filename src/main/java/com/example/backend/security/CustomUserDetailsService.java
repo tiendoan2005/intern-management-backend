@@ -41,11 +41,15 @@ public class CustomUserDetailsService implements UserDetailsService {
                                 })
                                 .collect(Collectors.toSet());
 
-                return org.springframework.security.core.userdetails.User.builder()
-                                .username(user.getEmail())
-                                .password(user.getPasswordHash())
-                                .authorities(authorities)
-                                .disabled(user.getStatus() != UserStatus.ACTIVE)
-                                .build();
+            boolean enabled = user.getStatus() == UserStatus.ACTIVE;
+
+            return new CustomUserDetails(
+                    user.getId(),
+                    user.getEmail(),
+                    user.getPasswordHash(),
+                    enabled,
+                    authorities
+            );
+
         }
 }

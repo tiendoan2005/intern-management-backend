@@ -35,6 +35,9 @@ public class User extends BaseEntity {
     @Column(nullable = false, length = 20)
     private UserStatus status = UserStatus.ACTIVE;
 
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    private InternProfile internProfile;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_roles",

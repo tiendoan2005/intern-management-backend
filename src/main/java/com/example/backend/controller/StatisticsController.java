@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import com.example.backend.dto.statistics.InternCountByMajorDTO;
 import com.example.backend.dto.statistics.InternCountByUniversityDTO;
 import com.example.backend.dto.statistics.InternCountByUniversityMajorDTO;
+import com.example.backend.dto.statistics.ProgramCompletionDTO;
 import com.example.backend.service.StatisticsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -50,5 +51,18 @@ public class StatisticsController {
             @RequestParam(required = false) String keyword
     ) {
         return statisticsService.internsByUniversityMajor(from, to, keyword);
+    }
+
+    // =========================================================
+    // ✅ NEW: Program Completion Rate
+    // GET /api/statistics/interns/program-completion?programId=1
+    // programId optional
+    // =========================================================
+    @GetMapping("/program-completion")
+    @PreAuthorize("hasRole('HR') or hasRole('ADMIN')")
+    public List<ProgramCompletionDTO> programCompletion(
+            @RequestParam(required = false) Long programId
+    ) {
+        return statisticsService.programCompletion(programId);
     }
 }

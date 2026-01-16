@@ -1,22 +1,18 @@
 package com.example.backend.dto.taskupdate;
 
-import jakarta.validation.constraints.*;
-import lombok.*;
-import java.util.List;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.Data;
 
-@Getter @Setter
-@NoArgsConstructor @AllArgsConstructor
+@Data
 public class CreateTaskUpdateRequest {
-
-    @NotNull(message = "Progress percent is required")
-    @Min(value = 0)
-    @Max(value = 100)
+    @NotNull
+    @Min(0)
+    @Max(100)
     private Integer progressPercent;
 
-    @NotBlank(message = "Content is required")
     @Size(max = 4000)
     private String content;
-
-    // optional – URL file đính kèm
-    private List<String> attachments;
 }
